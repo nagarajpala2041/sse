@@ -1,0 +1,18 @@
+devops-assignment/
+│
+├── app/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── infra/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
+├── README.md
+└── architecture-diagram.png
