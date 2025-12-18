@@ -12,19 +12,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Login to ACR
-      uses: azure/docker-login@v1
+    - name: Azure Login
+      uses: azure/login@v1
       with:
-        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
-        username: ${{ secrets.ACR_USERNAME }}
-        password: ${{ secrets.ACR_PASSWORD }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login to ACR
+      run: az acr login --name myregistry2041
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/health-app:latest ./app
-        docker push ${{ secrets.ACR_LOGIN_SERVER }}/health-app:latest
-
-    - name: Restart Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.health-app-2041 }}
+        docker build -t myregistry2041.azurecr.io/health-app:latest ./app
+        docker push myregistry2041.azurecr.io/health-app:latest
